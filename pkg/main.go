@@ -1,7 +1,8 @@
 package main
 
 import(
-	"github.com/Perezonance/movie-manager-service/models"
+	"encoding/json"
+	"github.com/Perezonance/movie-manager-service/pkg/models"
 
 	"fmt"
 	"io/ioutil"
@@ -35,12 +36,25 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 		fmt.Println(err)
 	}
 
+	var payload = models.RequestUserPayload{}
+	err = json.Unmarshal(body, &payload)
+	if err != nil {
+		//TODO: Error Handling
+		fmt.Println(err)
+	}
 
-
-
-	fmt.Printf("Recieved request to /movie endpoint with the following payload: \n%v\n", string(body))
+	for _, u := range payload.Payload {
+		fmt.Println(u.Name)
+		go PostUser(u)
+	}
+	fmt.Printf("Recieved request to /user endpoint\n")
+	//fmt.Printf("Received request to /movie endpoint with the following payload: \n%v\n", string(body))
 }
 
 func postHandler(w http.ResponseWriter, r *http.Request) {
 
+}
+
+func PostUser(u models.User) {
+	fmt.Printf("User with id %v and name %v has been added to DB\n", u.Id, u.Name)
 }
