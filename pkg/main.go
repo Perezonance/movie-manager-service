@@ -69,7 +69,7 @@ func fruitHandler(w http.ResponseWriter, r *http.Request) {
 
 	//fmt.Printf("First user's name:%v\n", reqPayload.Payload[0].Name)
 
-	for _, u := range reqPayload.Payload {
+	for _, u := range reqPayload {
 		go PostUser(u)
 	}
 
