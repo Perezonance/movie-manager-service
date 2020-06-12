@@ -30,8 +30,8 @@ func start() error{
 	s, err := server.NewServer(db)
 
 	fmt.Println("Starting up server...")
-	http.HandleFunc(root + "/user", userHandler)
-	http.HandleFunc(root + "/post", postHandler)
+	http.HandleFunc(root + "/user", server.UserHandler)
+	http.HandleFunc(root + "/post", server.PostHandler)
 
 	fmt.Printf("Listening on %v\n", fullAddr)
 	return http.ListenAndServe(fullAddr, nil)
