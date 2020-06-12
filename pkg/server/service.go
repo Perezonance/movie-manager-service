@@ -4,12 +4,15 @@ import (
 	"github.com/Perezonance/movie-manager-service/pkg/storage"
 )
 
-const (
 
-)
 
 type (
 	Server struct {
-		storage.DynamoDB
+		db storage.DynamoDB
 	}
 )
+
+func NewServer(db storage.DynamoDB) (Server, error) {
+	//TODO: Server instance id setup
+	return Server{db:db}, nil
+}

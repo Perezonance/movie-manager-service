@@ -1,6 +1,7 @@
 package storage
 
 import (
+	"fmt"
 	"github.com/Perezonance/movie-manager-service/pkg/models"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
@@ -10,6 +11,11 @@ import (
 const (
 	awsDynamoEndpoint 	string = ""
 	awsDynamoRegion		string = ""
+
+	userTable string = ""
+	postTable string = ""
+
+	logRoot = "user-management-server>> "
 )
 
 type (
@@ -31,10 +37,42 @@ func NewDynamo() (DynamoDB, error){
 	return DynamoDB{db: svc}, nil
 }
 
-func (d *DynamoDB)GetUser() {
+//TODO:Implement Business Logic
 
+/////////////////////////////////// User Services ///////////////////////////////////
+
+func (d *DynamoDB)GetUser(id string) (models.User, error){
+	fmt.Printf(logRoot + "Searching %v table for user with id:%v\n", userTable, id)
+	fmt.Println("UNIMPLEMENTED")
+	return models.User{}, nil
 }
 
-func (d *DynamoDB)InsertUser(user models.User) {
+func (d *DynamoDB)PostUser(user models.User) error {
+	fmt.Printf(logRoot + "Inserting user into %v table:%v\n", userTable, user)
+	fmt.Println("UNIMPLEMENTED")
+	return nil
+}
+func (d *DynamoDB)DeleteUser(user models.User) (models.User, error) {
+	fmt.Printf(logRoot + "Deleting user from %v table:%v\n", userTable, user)
+	fmt.Println("UNIMPLEMENTED")
+	return user, nil
+}
 
+/////////////////////////////////// Post Services ///////////////////////////////////
+
+func (d *DynamoDB)GetPost(id string) (models.User, error){
+	fmt.Printf(logRoot + "Searching %v table for post with id:%v\n", postTable, id)
+	fmt.Println("UNIMPLEMENTED")
+	return models.User{}, nil
+}
+
+func (d *DynamoDB)PostPost(user models.User) error {
+	fmt.Printf(logRoot + "Inserting post into %v table:%v\n", postTable, user)
+	fmt.Println("UNIMPLEMENTED")
+	return nil
+}
+func (d *DynamoDB)DeletePost(user models.User) (models.User, error) {
+	fmt.Printf(logRoot + "Deleting post from %v table:%v\n", postTable, user)
+	fmt.Println("UNIMPLEMENTED")
+	return user, nil
 }
