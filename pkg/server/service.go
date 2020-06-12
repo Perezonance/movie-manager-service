@@ -1,10 +1,11 @@
 package server
 
 import (
-	"encoding/json"
-	"fmt"
 	"github.com/Perezonance/movie-manager-service/pkg/models"
 	"github.com/Perezonance/movie-manager-service/pkg/storage"
+
+	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
