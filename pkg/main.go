@@ -20,20 +20,28 @@ func main() {
 }
 
 func start() error{
-	var s = server.Server{}
-	if mock {
-		db, err := storage.NewMockDynamo()
-		if err != nil {
-			//TODO: ERROR HANDLING
-		}
-		s, err := server.NewServer(db)
-	} else {
-		db, err := storage.NewDynamo()
-		if err != nil {
-			//TODO: ERROR HANDLING
-		}
-		s, err = server.NewServer(db)
+	db, err := storage.NewDynamo()
+	if err != nil {
+		//TODO: ERROR HANDLING
 	}
+	s, err := server.NewServer(db)
+	if err != nil {
+		//TODO: ERROR HANDLING
+	}
+	//var s = server.Server{}
+	//if mock {
+	//	db, err := storage.NewMockDynamo()
+	//	if err != nil {
+	//		//TODO: ERROR HANDLING
+	//	}
+	//	s, err := server.NewServer(db)
+	//} else {
+	//	db, err := storage.NewDynamo()
+	//	if err != nil {
+	//		//TODO: ERROR HANDLING
+	//	}
+	//	s, err = server.NewServer(db)
+	//}
 
 	fmt.Println("Starting up server...")
 	http.HandleFunc(root + "/user", s.UserHandler)

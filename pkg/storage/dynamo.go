@@ -24,7 +24,7 @@ type (
 	}
 )
 
-func NewDynamo() (DynamoDB, error){
+func NewDynamo() (*DynamoDB, error){
 	config := &aws.Config{
 		Endpoint: aws.String(awsDynamoEndpoint),
 		Region: aws.String(awsDynamoRegion),
@@ -34,7 +34,7 @@ func NewDynamo() (DynamoDB, error){
 
 	svc := dynamodb.New(sess)
 
-	return DynamoDB{db: svc}, nil
+	return &DynamoDB{db: svc}, nil
 }
 
 //TODO:Implement Business Logic

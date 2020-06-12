@@ -54,7 +54,7 @@ func (s *Server)getPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server)postPost(w http.ResponseWriter, r *http.Request) {
-	var reqPayload models.RequestPostPayload
+	var reqPayload models.RequestPostsPayload
 	err := json.NewDecoder(r.Body).Decode(&reqPayload)
 	if err != nil {
 		//TODO: ERROR HANDLING
