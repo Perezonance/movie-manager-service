@@ -3,7 +3,8 @@ package storage
 import (
 	"fmt"
 	"github.com/Perezonance/movie-manager-service/pkg/models"
-	"github.com/pkg/errors"
+	"github.com/Perezonance/movie-manager-service/pkg/primatives"
+	"github.com/Perezonance/movie-manager-service/pkg/primitives"
 )
 
 type (
@@ -25,8 +26,8 @@ func (d *DynamoMock)GetUser(id float64) (models.User, error){
 	fmt.Printf(logRoot + "Searching %v table for user with id:%v\n", userTable, id)
 
 	var (
-		user = models.User{}
-		err =
+		user = 	models.User{}
+		err  =	primitives.ErrUserNotFound
 	)
 	user = d.users[id]
 	if(user != models.User{}) {
@@ -37,7 +38,7 @@ func (d *DynamoMock)GetUser(id float64) (models.User, error){
 
 func (d *DynamoMock)PostUser(user models.User) error {
 	fmt.Printf(logRoot + "Inserting user into %v table:%v\n", userTable, user)
-
+	d.users[user.Id] = user
 	return nil
 }
 func (d *DynamoMock)DeleteUser(user models.User) (models.User, error) {
@@ -53,7 +54,7 @@ func (d *DynamoMock)GetPost(id float64) (models.Post, error){
 
 	var (
 		post = models.Post{}
-		err = errors.New(fmt.Sprintf("Post with id:%v not found in table", id))
+		err = primatives.ErrPostNotFound
 	)
 
 	post = d.posts[id]
