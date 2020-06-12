@@ -8,8 +8,8 @@ import (
 
 type (
 	DynamoMock struct {
-		users []models.User
-		posts []models.Post
+		users map[float64]models.User
+		posts map[float64]models.Post
 	}
 )
 
@@ -26,21 +26,18 @@ func (d *DynamoMock)GetUser(id float64) (models.User, error){
 
 	var (
 		user = models.User{}
-		err = errors.New(fmt.Sprintf("User with id:%v not found in table", id))
+		err =
 	)
-
-	for _, u := range d.users {
-		if u.Id == id {
-			user = u
-			err = nil
-		}
+	user = d.users[id]
+	if(user != models.User{}) {
+		err = nil
 	}
 	return user, err
 }
 
 func (d *DynamoMock)PostUser(user models.User) error {
 	fmt.Printf(logRoot + "Inserting user into %v table:%v\n", userTable, user)
-	fmt.Println("UNIMPLEMENTED")
+
 	return nil
 }
 func (d *DynamoMock)DeleteUser(user models.User) (models.User, error) {
@@ -59,11 +56,9 @@ func (d *DynamoMock)GetPost(id float64) (models.Post, error){
 		err = errors.New(fmt.Sprintf("Post with id:%v not found in table", id))
 	)
 
-	for _, p := range d.posts {
-		if p.Id == id {
-			post = p
-			err = nil
-		}
+	post = d.posts[id]
+	if(post != models.Post{}) {
+		err = nil
 	}
 	return post, err
 }
