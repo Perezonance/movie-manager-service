@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/Perezonance/movie-manager-service/pkg/models"
 	"github.com/Perezonance/movie-manager-service/pkg/server"
 	"github.com/Perezonance/movie-manager-service/pkg/storage"
 
@@ -29,13 +28,9 @@ func start() error{
 	s, err := server.NewServer(db)
 
 	fmt.Println("Starting up server...")
-	http.HandleFunc(root + "/user", server.UserHandler)
-	http.HandleFunc(root + "/post", server.PostHandler)
+	http.HandleFunc(root + "/user", s.UserHandler)
+	http.HandleFunc(root + "/post", s.PostHandler)
 
 	fmt.Printf("Listening on %v\n", fullAddr)
 	return http.ListenAndServe(fullAddr, nil)
-}
-
-func PostUser(u models.User) {
-	fmt.Printf("User with id %v and name %v has been added to DB\n", u.Id, u.Name)
 }
