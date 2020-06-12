@@ -17,9 +17,7 @@ func NewMockDynamo() (*DynamoMock, error){
 	return &DynamoMock{}, nil
 }
 
-//TODO:Implement Business Logic
-
-/////////////////////////////////// User Services ///////////////////////////////////
+/////////////////////////////////// User Dynamo Methods ///////////////////////////////////
 
 func (d *DynamoMock)GetUser(id float64) (models.User, error){
 	fmt.Printf(logRoot + "Searching %v table for user with id:%v\n", userTable, id)
@@ -46,7 +44,7 @@ func (d *DynamoMock)DeleteUser(user models.User) error {
 	return nil
 }
 
-/////////////////////////////////// Post Services ///////////////////////////////////
+/////////////////////////////////// Post Dynamo Methods ///////////////////////////////////
 
 func (d *DynamoMock)GetPost(id float64) (models.Post, error){
 	fmt.Printf(logRoot + "Searching %v table for post with id:%v\n", userTable, id)
