@@ -1,8 +1,12 @@
 package server
 
-import "net/http"
+import (
+	"fmt"
+	"net/http"
+)
 
 func UserHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Received request at UserHandler")
 	switch r.Method {
 	case http.MethodGet:
 		getUser(w, r)
@@ -19,6 +23,7 @@ func UserHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func PostHandler(w http.ResponseWriter, r *http.Request) {
+	fmt.Println("Received request at PostHandler")
 	switch r.Method {
 	case http.MethodGet:
 		getPost(w, r)
@@ -27,16 +32,11 @@ func PostHandler(w http.ResponseWriter, r *http.Request) {
 	case http.MethodPost:
 		postPost(w, r)
 	case http.MethodDelete:
+		deletePost(w, r)
 	default:
 		writeRes(http.StatusNotFound, http.StatusText(http.StatusNotFound), w)
 	}
 	return
-}
-
-func writeRes(statusCode int, message string, w http.ResponseWriter) {
-	w.WriteHeader(statusCode)
-	res := []byte(message)
-	w.Write(res)
 }
 
 

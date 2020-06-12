@@ -1,10 +1,9 @@
 package main
 
-import(
-	"encoding/json"
-	"github.com/Perezonance/movie-manager-service/pkg/storage"
+import (
 	"github.com/Perezonance/movie-manager-service/pkg/models"
 	"github.com/Perezonance/movie-manager-service/pkg/server"
+	"github.com/Perezonance/movie-manager-service/pkg/storage"
 
 	"fmt"
 	"net/http"

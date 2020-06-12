@@ -66,12 +66,12 @@ func (d *DynamoDB)GetPost(id string) (models.Post, error){
 	return models.Post{}, nil
 }
 
-func (d *DynamoDB)PostPost(user models.User) error {
+func (d *DynamoDB)PostPost(user models.Post) error {
 	fmt.Printf(logRoot + "Inserting post into %v table:%v\n", postTable, user)
 	fmt.Println("UNIMPLEMENTED")
 	return nil
 }
-func (d *DynamoDB)DeletePost(user models.User) error {
+func (d *DynamoDB)DeletePost(user models.Post) error {
 	fmt.Printf(logRoot + "Deleting post from %v table:%v\n", postTable, user)
 	fmt.Println("UNIMPLEMENTED")
 	return nil

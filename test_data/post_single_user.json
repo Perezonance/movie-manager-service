@@ -1,0 +1,8 @@
+{
+  "user": {
+    "id": 1,
+    "name": "Ryan Dahl",
+    "email": "node4lyfe@example.com",
+    "expertise": "Node"
+  }
+}
