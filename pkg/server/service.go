@@ -2,6 +2,7 @@ package server
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/Perezonance/movie-manager-service/pkg/models"
 	"github.com/Perezonance/movie-manager-service/pkg/storage"
 	"net/http"
@@ -26,13 +27,23 @@ func (s *Server)getUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server)postUser(w http.ResponseWriter, r *http.Request) {
-	var reqPayload models.RequestUsersPayload
-	err := json.NewDecoder(r.Body).Decode(&reqPayload)
+	var (
+		users []models.User
+		reqUsers models.RequestUsersPayload
+		reqUser models.RequestUserPayload
+	)
+	err := json.NewDecoder(r.Body).Decode(&reqUsers)
 	if err != nil {
-		//TODO: ERROR HANDLING
+		//If not multiple Users, then check if single user
+		err := json.NewDecoder(r.Body).Decode(&reqUser)
+		if err != nil {
+			//Input not valid
+			fmt.Printf("Input not valid")
+			writeRes(http.StatusBadRequest, http.StatusText(http.StatusBadRequest), w)
+		}
 	}
-
-	for _, u := range reqPayload.Payload {
+	users = append(users, reqUser.User, reqUsers.Payload)
+	for _, u := range users {
 		go func(){
 			err := s.db.PostUser(u)
 			if err != nil {
@@ -54,14 +65,24 @@ func (s *Server)getPost(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server)postPost(w http.ResponseWriter, r *http.Request) {
-	var reqPayload models.RequestPostsPayload
-	err := json.NewDecoder(r.Body).Decode(&reqPayload)
+	var (
+		posts []models.Post
+		reqPosts models.RequestPostsPayload
+		reqPost models.RequestPostPayload
+	)
+	err := json.NewDecoder(r.Body).Decode(&reqPosts)
 	if err != nil {
-		//TODO: ERROR HANDLING
+		//If not multiple Posts, then check if single post
+		err := json.NewDecoder(r.Body).Decode(&reqPost)
+		if err != nil {
+			//Input not valid
+			fmt.Printf("Input not valid")
+			writeRes(http.StatusBadRequest, http.StatusText(http.StatusBadRequest), w)
+		}
 	}
-
-	for _, p := range reqPayload.Payload {
-		go func() {
+	posts = append(posts, reqPost.Post, reqPosts.Payload)
+	for _, p := range posts {
+		go func(){
 			err := s.db.PostPost(p)
 			if err != nil {
 				//TODO: ERROR HANDLING
