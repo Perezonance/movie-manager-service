@@ -3,7 +3,6 @@ package storage
 import (
 	"fmt"
 	"github.com/Perezonance/movie-manager-service/pkg/models"
-	"github.com/Perezonance/movie-manager-service/pkg/primatives"
 	"github.com/Perezonance/movie-manager-service/pkg/primitives"
 )
 
@@ -41,10 +40,10 @@ func (d *DynamoMock)PostUser(user models.User) error {
 	d.users[user.Id] = user
 	return nil
 }
-func (d *DynamoMock)DeleteUser(user models.User) (models.User, error) {
+func (d *DynamoMock)DeleteUser(user models.User) error {
 	fmt.Printf(logRoot + "Deleting user from %v table:%v\n", userTable, user)
-	fmt.Println("UNIMPLEMENTED")
-	return user, nil
+	delete(d.users, user.Id)
+	return nil
 }
 
 /////////////////////////////////// Post Services ///////////////////////////////////
@@ -54,7 +53,7 @@ func (d *DynamoMock)GetPost(id float64) (models.Post, error){
 
 	var (
 		post = models.Post{}
-		err = primatives.ErrPostNotFound
+		err = primitives.ErrPostNotFound
 	)
 
 	post = d.posts[id]
@@ -64,13 +63,14 @@ func (d *DynamoMock)GetPost(id float64) (models.Post, error){
 	return post, err
 }
 
-func (d *DynamoMock)PostPost(user models.User) error {
-	fmt.Printf(logRoot + "Inserting post into %v table:%v\n", postTable, user)
-	fmt.Println("UNIMPLEMENTED")
+func (d *DynamoMock)PostPost(post models.Post) error {
+	fmt.Printf(logRoot + "Inserting post into %v table:%v\n", postTable, post)
+	d.posts[post.Id] = post
 	return nil
 }
-func (d *DynamoMock)DeletePost(user models.User) (models.User, error) {
-	fmt.Printf(logRoot + "Deleting post from %v table:%v\n", postTable, user)
-	fmt.Println("UNIMPLEMENTED")
-	return user, nil
+
+func (d *DynamoMock)DeletePost(post models.Post) error {
+	fmt.Printf(logRoot + "Deleting post from %v table:%v\n", postTable, post)
+	delete(d.posts, post.Id)
+	return nil
 }
