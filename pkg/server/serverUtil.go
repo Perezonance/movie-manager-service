@@ -5,5 +5,8 @@ import "net/http"
 func writeRes(statusCode int, message string, w http.ResponseWriter) {
 	w.WriteHeader(statusCode)
 	res := []byte(message)
-	w.Write(res)
+	_, err := w.Write(res)
+	if err != nil {
+		//TODO: ERROR HANDLING
+	}
 }

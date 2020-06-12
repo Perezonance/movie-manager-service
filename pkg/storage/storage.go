@@ -2,7 +2,7 @@ package storage
 
 import "github.com/Perezonance/movie-manager-service/pkg/models"
 
-type persistence interface {
+type Persistence interface {
 	GetUser(id string) (models.User, error)
 	PostUser(user models.User) error
 	DeleteUser(user models.User) error

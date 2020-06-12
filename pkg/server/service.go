@@ -15,7 +15,7 @@ type (
 
 /////////////////////////////////// User Service Functions ///////////////////////////////////
 
-func NewServer(db *storage.DynamoDB) (Server, error) {
+func NewServer(db Persistence{}) (Server, error) {
 	//TODO: Server instance id setup
 	return Server{db:db}, nil
 }
