@@ -1,10 +1,6 @@
 package models
 
 type (
-	TestFruitPayload struct {
-		Fruits		[]string	`json:"fruits"`
-	}
-
 	RequestUserPayload struct {
 		Payload 	[]User		`json:"users"`
 	}
@@ -21,8 +17,8 @@ type (
 	}
 
 	Post struct {
-		Id 			string		`json:"id"`
-		UserId 		string 		`json:"userId"`
+		Id 			float64		`json:"id"`
+		UserId 		float64 	`json:"userId"`
 		Title 		string 		`json:"title"`
 		Body 		string 		`json:"body"`
 	}

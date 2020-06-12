@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Ryan Dahl",
+      "email": "node4lyfe@example.com",
+      "expertise": "Node"
+    },
+    {
+      "id": 2,
+      "name": "Rob Pike",
+      "email": "gofarther@example.com",
+      "expertise": "Go"
+    },
+    {
+      "id": 3,
+      "name": "DHH",
+      "email": "magic@example.com",
+      "expertise": "Rails"
+    }
+  ]
+}

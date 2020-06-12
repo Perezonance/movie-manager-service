@@ -3,7 +3,7 @@ package main
 import(
 	"encoding/json"
 	"github.com/Perezonance/movie-manager-service/pkg/models"
-	"time"
+	"github.com/Perezonance/movie-manager-service/pkg/service"
 
 	"fmt"
 	"net/http"
@@ -21,17 +21,16 @@ func main() {
 }
 
 func start() error{
-	fmt.Println("Starting up server..")
+	fmt.Println("Starting up server...")
 	http.HandleFunc(root + "/user", userHandler)
 	http.HandleFunc(root + "/post", postHandler)
-	http.HandleFunc(root + "/fruit", fruitHandler)
 
 	fmt.Printf("Listening on %v\n", fullAddr)
 	return http.ListenAndServe(fullAddr, nil)
 }
 
+//TODO: redundant code in both handlers
 func userHandler(w http.ResponseWriter, r *http.Request) {
-
 	var reqPayload models.RequestUserPayload
 	if err := json.NewDecoder(r.Body).Decode(&reqPayload); err != nil {
 		//TODO: Error Handling
@@ -41,24 +40,16 @@ func userHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//fmt.Printf("First user's name:%v\n", reqPayload.Payload[0].Name)
+	fmt.Printf("Number of Users:%v\n", len(reqPayload.Payload))
 
 	for _, u := range reqPayload.Payload {
 		go PostUser(u)
 	}
-
-
 	fmt.Printf("Recieved request to /user endpoint\n")
-	time.Sleep(2 * time.Second)
-	//fmt.Printf("Received request to /movie endpoint with the following payload: \n%v\n", string(body))
 }
 
 func postHandler(w http.ResponseWriter, r *http.Request) {
-
-}
-
-func fruitHandler(w http.ResponseWriter, r *http.Request) {
-	var reqPayload models.TestFruitPayload
+	var reqPayload models.RequestPostPayload
 	if err := json.NewDecoder(r.Body).Decode(&reqPayload); err != nil {
 		//TODO: Error Handling
 		fmt.Printf("Server error> %v\n", err)
@@ -67,15 +58,13 @@ func fruitHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	//fmt.Printf("First user's name:%v\n", reqPayload.Payload[0].Name)
+	fmt.Printf("Number of Posts:%v\n", len(reqPayload.Payload))
 
-	for _, u := range reqPayload {
+	for _, u := range reqPayload.Payload {
 		go PostUser(u)
 	}
 
-
 	fmt.Printf("Recieved request to /user endpoint\n")
-	time.Sleep(2 * time.Second)
 }
 
 func PostUser(u models.User) {
