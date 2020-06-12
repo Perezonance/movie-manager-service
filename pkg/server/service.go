@@ -15,7 +15,7 @@ type (
 
 /////////////////////////////////// User Service Functions ///////////////////////////////////
 
-func NewServer(db Persistence{}) (Server, error) {
+func NewServer(db *storage.DynamoDB) (Server, error) {
 	//TODO: Server instance id setup
 	return Server{db:db}, nil
 }
@@ -26,7 +26,7 @@ func (s *Server)getUser(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server)postUser(w http.ResponseWriter, r *http.Request) {
-	var reqPayload models.RequestUserPayload
+	var reqPayload models.RequestUsersPayload
 	err := json.NewDecoder(r.Body).Decode(&reqPayload)
 	if err != nil {
 		//TODO: ERROR HANDLING

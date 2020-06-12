@@ -6,7 +6,6 @@ import (
 )
 
 func (s *Server)UserHandler(w http.ResponseWriter, r *http.Request) {
-
 	fmt.Println("Received request at UserHandler")
 	switch r.Method {
 	case http.MethodGet:
